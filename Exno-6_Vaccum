@@ -1,0 +1,18 @@
+# Simple Reflex Agent for Vacuum Cleaner
+print("192311338-B.Harishwar Reddy")
+def vacuum_cleaner():
+    # Initial state of the rooms (can be 'Dirty' or 'Clean')
+    rooms = {'A': 'Dirty', 'B': 'Dirty'}
+    location = 'A'  # Start in Room A
+
+    while 'Dirty' in rooms.values():
+        print(f"Vacuum in Room {location}, Status: {rooms[location]}")
+        if rooms[location] == 'Dirty':
+            print(f"> Cleaning Room {location}")
+            rooms[location] = 'Clean'
+        # Move to the other room
+        location = 'B' if location == 'A' else 'A'
+
+    print("All rooms are clean!")
+
+vacuum_cleaner()
