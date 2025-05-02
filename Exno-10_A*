@@ -1,0 +1,45 @@
+from queue import PriorityQueue
+
+def heuristic(a, b):
+    return abs(a[0] - b[0]) + abs(a[1] - b[1])  # Manhattan distance
+
+print("192311338-B.Harishwar Reddy")
+def a_star(start, goal, graph):
+    open_set = PriorityQueue()
+    open_set.put((0, start))
+    came_from = {}
+    g_score = {start: 0}
+
+    while not open_set.empty():
+        _, current = open_set.get()
+
+        if current == goal:
+            path = []
+            while current in came_from:
+                path.append(current)
+                current = came_from[current]
+            path.append(start)
+            return path[::-1]
+
+        for neighbor in graph.get(current, []):
+            temp_g = g_score[current] + 1
+            if neighbor not in g_score or temp_g < g_score[neighbor]:
+                g_score[neighbor] = temp_g
+                f_score = temp_g + heuristic(neighbor, goal)
+                open_set.put((f_score, neighbor))
+                came_from[neighbor] = current
+
+    return None
+
+# Example usage
+graph = {
+    (0, 0): [(1, 0), (0, 1)],
+    (1, 0): [(0, 0), (1, 1)],
+    (0, 1): [(0, 0), (1, 1)],
+    (1, 1): [(1, 0), (0, 1), (2, 1)],
+    (2, 1): [(1, 1)]
+}
+start = (0, 0)
+goal = (2, 1)
+
+print("Path:", a_star(start, goal, graph))
