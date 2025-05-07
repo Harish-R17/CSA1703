@@ -1,0 +1,33 @@
+% Print student details
+print_student :-
+    write('192311338 - B.Harishwar Reddy'), nl.
+
+% Facts: bird(Name).
+bird(sparrow).
+bird(eagle).
+bird(penguin).
+bird(ostrich).
+bird(parrot).
+bird(owl).
+
+% Facts: cannot_fly(Bird).
+cannot_fly(penguin).
+cannot_fly(ostrich).
+
+% Rule: can_fly(Bird) if it's a bird and not in cannot_fly
+can_fly(Bird) :-
+    bird(Bird),
+    \+ cannot_fly(Bird).
+
+% Rule: cannot_fly(Bird) if explicitly mentioned
+% (already handled by facts)
+
+% Predicate to print whether a bird can fly
+fly_status(Bird) :-
+    print_student,
+    ( can_fly(Bird) ->
+        format('~w can fly.~n', [Bird])
+    ; bird(Bird) ->
+        format('~w cannot fly.~n', [Bird])
+    ; format('~w is not a known bird.~n', [Bird])
+    ).
