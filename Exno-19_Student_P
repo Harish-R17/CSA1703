@@ -1,0 +1,28 @@
+% Facts
+
+% student(Name, SubjectCode).
+student(john, cs101).
+student(alice, cs101).
+student(mary, cs102).
+student(bob, cs103).
+student(susan, cs102).
+
+% teacher(Name, SubjectCode).
+teacher(prof_smith, cs101).
+teacher(prof_jones, cs102).
+teacher(prof_lee, cs103).
+
+% Rules
+
+% teaches(Teacher, Student): Teacher teaches the Student.
+teaches(Teacher, Student) :-
+    student(Student, Sub),
+    teacher(Teacher, Sub).
+
+% students_of(Teacher, StudentList): List of students taught by a teacher.
+students_of(Teacher, Students) :-
+    findall(Student, teaches(Teacher, Student), Students).
+
+% teacher_of(Student, Teacher): Find the teacher of a given student.
+teacher_of(Student, Teacher) :-
+    teaches(Teacher, Student).
