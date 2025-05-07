@@ -1,0 +1,27 @@
+% Print student details
+print_student :-
+    write('192311338 - B.Harishwar Reddy'), nl.
+
+% hanoi(N, From, To, Aux): Move N disks from From to To using Aux as auxiliary
+hanoi(0, _, _, _) :- !.
+hanoi(N, From, To, Aux) :-
+    N > 0,
+    M is N - 1,
+    hanoi(M, From, Aux, To),
+    move_disk(From, To),
+    hanoi(M, Aux, To, From).
+
+% Print a single move
+move_disk(From, To) :-
+    write('Move disk from '),
+    write(From),
+    write(' to '),
+    write(To),
+    nl.
+
+% Start program with sample call
+start :-
+    print_student,
+    nl,
+    write('Towers of Hanoi for 3 disks:'), nl,
+    hanoi(3, left, right, center).
