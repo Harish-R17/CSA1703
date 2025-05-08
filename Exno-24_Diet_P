@@ -1,0 +1,30 @@
+% Print student details
+print_student :-
+    write('192311338 - B.Harishwar Reddy'), nl.
+
+% --- Disease to Diet Suggestions ---
+
+% disease_diet(Disease, SuggestedFoodList).
+
+disease_diet(diabetes, [vegetables, whole_grains, lean_protein, nuts, fruits]).
+disease_diet(hypertension, [low_salt_foods, fruits, vegetables, whole_grains]).
+disease_diet(obesity, [high_fiber_foods, lean_protein, fruits, green_tea]).
+disease_diet(anemia, [iron_rich_foods, leafy_greens, red_meat, beans]).
+disease_diet(cardiac, [omega_3_foods, nuts, berries, oatmeal, olive_oil]).
+disease_diet(kidney_disease, [low_protein_foods, rice, apples, cabbage]).
+disease_diet(gastritis, [boiled_foods, bananas, rice, yogurt, coconut_water]).
+
+% Rule to suggest diet based on disease
+suggest_diet(Disease) :-
+    print_student,
+    ( disease_diet(Disease, DietList) ->
+        format('Suggested diet for ~w: ~n', [Disease]),
+        print_list(DietList)
+    ; format('No diet suggestions found for ~w.~n', [Disease])
+    ).
+
+% Helper to print list items line by line
+print_list([]).
+print_list([H|T]) :-
+    write('- '), write(H), nl,
+    print_list(T).
