@@ -1,0 +1,77 @@
+% Print student details
+print_student :-
+    write('192311338 - B.Harishwar Reddy'), nl.
+
+% --- Basic Family Tree Facts ---
+
+% gender facts
+male(john).
+male(paul).
+male(mike).
+male(david).
+male(tom).
+
+female(mary).
+female(lisa).
+female(susan).
+female(anna).
+
+% parent facts
+parent(john, paul).
+parent(john, lisa).
+parent(mary, paul).
+parent(mary, lisa).
+
+parent(paul, mike).
+parent(paul, susan).
+parent(lisa, david).
+parent(lisa, anna).
+
+% --- Relationship Rules ---
+
+% father(X, Y): X is the father of Y
+father(X, Y) :-
+    male(X),
+    parent(X, Y).
+
+% mother(X, Y): X is the mother of Y
+mother(X, Y) :-
+    female(X),
+    parent(X, Y).
+
+% sibling(X, Y): X and Y are siblings
+sibling(X, Y) :-
+    parent(Z, X),
+    parent(Z, Y),
+    X \= Y.
+
+% brother(X, Y): X is the brother of Y
+brother(X, Y) :-
+    male(X),
+    sibling(X, Y).
+
+% sister(X, Y): X is the sister of Y
+sister(X, Y) :-
+    female(X),
+    sibling(X, Y).
+
+% grandparent(X, Y): X is the grandparent of Y
+grandparent(X, Y) :-
+    parent(X, Z),
+    parent(Z, Y).
+
+% grandchild(X, Y): X is the grandchild of Y
+grandchild(X, Y) :-
+    grandparent(Y, X).
+
+% uncle(X, Y): X is uncle of Y
+uncle(X, Y) :-
+    male(X),
+    parent(Z, Y),
+    sibling(X, Z).
+
+% aunt(X, Y): X is aunt of Y
+aunt(X, Y) :-
+    female(X),
+    parent(Z, Y),
+    sibling(X, Z).
